@@ -43,6 +43,6 @@ public class CandString implements Candidate, Comparable<CandString>{
 		
 		/*Displays the CandString the way they were displayed in the sample
 		 * output */
-		return word + " ("+count+")";
+		return "\""+word+"\"" + " ("+count+")";
 	}
 }
