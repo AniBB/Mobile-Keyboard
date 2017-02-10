@@ -95,8 +95,9 @@ public class AutoComplete implements AutocompleteProvider{
 		ArrayList<CandString> candList = new ArrayList<CandString>();
 		
 		/*No need to search if Node-linked tree is empty*/
-		if(text == null)
+		if(text == null) {
 			return candList;
+		}
 		
 		Node curr = text;
 		Stack<Node> potentialMatches = new Stack<Node>();
@@ -166,7 +167,10 @@ public class AutoComplete implements AutocompleteProvider{
 		
 		for(String s : words) {
 			
-			/*Inserts words into Node-linked tree ignoring case*/
+			/*Inserts words into Node-linked tree ignoring case.
+			  MAY MODIFY IN THE FUTURE FOR THE SAKE OF EFFICIENCY - may
+			  try to prevent the "text" instance variable from being an 
+			  imbalanced tree.*/
 			insert(s.toLowerCase());
 		}
 	}
@@ -182,21 +186,5 @@ public class AutoComplete implements AutocompleteProvider{
 		ArrayList<CandString> candList = collectWords(fragment);
 		Collections.sort(candList);
 		return (List)candList;
-	}
-	
-	public static void main(String[] args) {
-		
-		AutoComplete ac = new AutoComplete();
-		ac.train("The thin thing thinks thoroughly");
-		ArrayList<Candidate> list = (ArrayList<Candidate>) ac.getWords("thin");
-		ac.train("That computer is too slow for me. Speed it up NOW.  What you will do: You will write a function eval that, "
-				+ "given an environment and an AST, executes the SmallC function corresponding to that AST in the given environment. The type of eval is env -> ast ->env, where the first argument env is an environment, the second is the AST, and the result is an environment. "
-				+ "The environment can be (string * value) list or (string, value_type) Hashtbl. It holds all defined variables and their values. You can use OCaml HashTbl module. When you implement your interpreter:"
-    		+ "Variables must be defined and initialized before they are used. Your interpreter throws exception when a variables is used before it is defined and initialized. You can do this by looking "
-    		+ "up the variable from your environment."
-    		+ "A variable cannot be defined twice. Your interpreter throws exception if a variable is defined second time. You can do this by checking "
-    		+ "if a variable exists in your environment."
-    		+ "Only printf statement produces output. Any SmallC code with no printf does not produce output.");
-		ArrayList<Candidate> list2 = (ArrayList<Candidate>) ac.getWords("b");
 	}
 }
